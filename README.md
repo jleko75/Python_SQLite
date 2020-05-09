@@ -1,2 +1,2 @@
-# Python_SQLite
-python SQLite
+# PythonForFinance
+pandas, python, finance etc
