@@ -14,19 +14,28 @@ c = conn.cursor()
 #             )""")
 
 
+
+
+# načini na koji unosimo podatke u tablicu
+# 1.
+#c.execute("INSERT INTO employees VALUES ('Jozo', 'Leko', 60000)")
+# 2.
+#c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': emp_1.first, 'last': emp_1.last, 'pay': emp_1.pay})
+# 3. funkcija
 def insert_emp(emp):
     with conn:
         c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': emp.first, 'last': emp.last, 'pay': emp.pay})
 
-# način na koji unosimo podatke u tablicu
-c.execute("INSERT INTO employees VALUES ('Jozo', 'Leko', 60000)")
-
-# način na koji selektiramo podatke iz tablice
-c.execute("SELECT * FROM employees WHERE last='Leko'")
-print(c.fetchone())
-
-
-
+# načini na koji selektiramo podatke iz tablice
+# 1.
+#c.execute("SELECT * FROM employees WHERE last='Leko'")
+#print(c.fetchone())
+# 2.
+#c.execute("SELECT * FROM employees WHERE last=?",('Leko'))
+# 3.
+c.execute("SELECT * FROM employees WHERE last=:last",{'last':'Leko'})
+print(c.fetchmany())
+# 4. funkcija
 def get_emps_by_name(lastname):
     c.execute("SELECT * FROM employees WHERE last=:last", {'last': lastname})
     return c.fetchall()
